@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-foreground: #111111;
+  --color-muted: #6b7280;
+  --color-card: #ffffff;
+  --color-card-border: #e5e7eb;
+  --font-sans: "Inter", sans-serif;
+}
+
+body {
+  background-color: #fafafa;
+  color: var(--color-foreground);
+}
+
+@keyframes toc-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .toc-item {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity var(--toc-transition-duration, 200ms) ease,
+                transform var(--toc-transition-duration, 200ms) ease;
+  }
+
+  .toc-item-enter {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TOC scrollable container */
+.toc-scroll-container {
+  position: relative;
+  max-height: calc(var(--toc-max-height, 320px));
+  overflow: hidden;
+}
+
+.toc-scroll-wrapper {
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+  padding-right: 4px;
+}
+
+.toc-scroll-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 2px;
+}
+
+.toc-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+.toc-scroll-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.toc-scroll-top {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(250, 250, 250, 0.95), transparent);
+  color: #6b7280;
+}
+
+.toc-scroll-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(250, 250, 250, 0.95), transparent);
+  color: #6b7280;
+}
+
+.toc-scroll-container[data-scroll-state="bottom"] .toc-scroll-top {
+  opacity: 1;
+}
+
+.toc-scroll-container[data-scroll-state="top"] .toc-scroll-bottom {
+  opacity: 1;
+}
+
+.toc-scroll-container[data-scroll-state="middle"] .toc-scroll-top,
+.toc-scroll-container[data-scroll-state="middle"] .toc-scroll-bottom {
+  opacity: 1;
+}
