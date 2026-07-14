@@ -1,32 +1,77 @@
-# React + TypeScript + Vite
+# Hycloud Blog Theme
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A minimalist blog theme built with React, TypeScript, and Tailwind CSS. Clean typography, smooth animations, and Markdown-powered content — designed for clarity and readability.
 
-Currently, two official plugins are available:
+![Cloudflare Pages](https://img.shields.io/badge/Deployed_on-Cloudflare_Fuchsia?style=for-the-badge)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![React](https://img.hycloud.ac0.workers.dev/badge?name=React&color=61DAFB)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+Visit the live site: [https://hycloud-ac0.pages.dev](https://hycloud-ac0.pages.dev)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the Oxlint configuration
+- **Minimalist Design** — Clean typography with neutral colors, no distractions
+- **GSAP Animations** — Scroll-triggered text reveals, mouse-following scramble effects, and smooth transitions
+- **Markdown Posts** — Write articles in Markdown with frontmatter (title, date, category, excerpt)
+- **Table of Contents** — Auto-generated TOC with scroll-spy and smooth anchor navigation
+- **Responsive Layout** — Optimized for mobile, tablet, and desktop
+- **Reading Progress Bar** — Visual indicator of article progress
+- **Prev/Next Navigation** — Easy navigation between chronological posts
+- **Cloudflare Pages Ready** — One-click deploy with `wrangler.toml` pre-configured
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Tech Stack
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+| Category | Technology |
+| --- | --- |
+| Framework | React 19 + TypeScript |
+| Build Tool | Vite 8 |
+| Styling | Tailwind CSS v4 |
+| Routing | React Router v7 |
+| Animations | GSAP (SplitText, ScrambledText) |
+| Markdown | remark + rehype pipeline |
+| Deployment | Cloudflare Pages |
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Project Structure
+
+```
+content/posts/    # Markdown blog posts
+src/
+  components/     # React components
+  lib/            # Markdown rendering utilities
+  assets/         # Global styles and fonts
+```
+
+## Deploy to Cloudflare Pages
+
+1. Push this repository to GitHub
+2. Connect to Cloudflare Pages
+3. Framework preset: **React (Vite)**
+4. Build command: `npm run build`
+5. Output directory: `dist`
+6. Click **Save and Deploy**
+
+A `wrangler.toml` is included for convenience.
+
+## Topics
+
+`blog` `blog-theme` `react` `vite` `tailwindcss` `typescript` `gsap` `markdown` `cloudflare-pages` `minimal` `animation`
+
+## License
+
+MIT
