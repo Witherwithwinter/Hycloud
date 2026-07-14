@@ -51,28 +51,7 @@ export async function renderMarkdown(rawContent: string): Promise<RenderedPost> 
     .use(extractHeadings) // Capture headings with their IDs from the AST
     .use(rehypeAutolinkHeadings, {
       behavior: 'prepend',
-      test: { type: 'element', tagName: 'h2' },
-      content: [
-        {
-          type: 'element',
-          tagName: 'svg',
-          properties: {
-            width: '12',
-            height: '12',
-            viewBox: '0 0 24 24',
-            fill: 'none',
-            stroke: 'currentColor',
-            'stroke-width': '2',
-            'stroke-linecap': 'round',
-            'stroke-linejoin': 'round',
-          },
-          children: [
-            { type: 'element', tagName: 'path', properties: { d: 'M9 18l6-6' } },
-            { type: 'element', tagName: 'path', properties: { d: 'M15 18l-6-6' } },
-          ],
-        },
-      ],
-    })
+    } as any)
     .use(rehypeHighlight)
     .use(rehypeStringify) // Serialize to HTML — preserves id attributes
     .process(rawContent)

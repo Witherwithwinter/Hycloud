@@ -8,7 +8,7 @@ import fs from 'fs'
 function markdownPlugin() {
   return {
     name: 'markdown-plugin',
-    async transform(code: string, id: string) {
+    async transform(_code: string, id: string) {
       if (!id.endsWith('.md') || id.includes('node_modules')) return
 
       const raw = fs.readFileSync(id, 'utf-8')
