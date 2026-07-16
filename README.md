@@ -2,7 +2,7 @@
 
 A minimalist blog theme built with React, TypeScript, and Tailwind CSS. Clean typography, smooth animations, and Markdown-powered content — designed for clarity and readability.
 
-![Deployed on Cloudflare](https://img.shields.io/badge/Deployed_on-Cloudflare-F76B11?style=for-the-badge&logo=cloudflare&logoColor=white)
+[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Witherwithwinter/Hycloud)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)

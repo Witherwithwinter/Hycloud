@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route, useParams, Link, useLocation, useNavigate, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useParams, Link, useLocation, Navigate } from 'react-router-dom'
 import { Suspense, lazy, useEffect, useState, createContext, useContext } from 'react'
 import Hero from '@/components/Hero'
 import PostList from '@/components/PostList'
 import Footer from '@/components/Footer'
 import NavBar from '@/components/NavBar'
+import ClickSpark from '@/components/ClickSpark'
 
 const ArticlePage = lazy(() => import('@/components/ArticlePage'))
 const ArchivePage = lazy(() => import('@/components/ArchivePage'))
@@ -191,8 +192,10 @@ export default function App() {
   return (
     <NavHistoryProvider>
       <BrowserRouter>
-        <NavBar />
-        <AppRoutes />
+        <ClickSpark sparkColor="#111827" sparkSize={8} sparkRadius={20} sparkCount={12}>
+          <NavBar />
+          <AppRoutes />
+        </ClickSpark>
       </BrowserRouter>
     </NavHistoryProvider>
   )
