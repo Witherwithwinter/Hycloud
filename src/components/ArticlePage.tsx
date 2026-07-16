@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { renderMarkdown, type RenderedPost } from '@/lib/render'
 import LineSidebar from '@/components/LineSidebar'
+import SplitText from '@/components/SplitText'
 
 interface ArticlePageProps {
   title: string
@@ -20,6 +21,8 @@ export default function ArticlePage({ title, date, category, slug, content, back
   const [activeHeading, setActiveHeading] = useState<number | null>(null)
   const tocWrapperRef = useRef<HTMLDivElement>(null)
   const [tocScrollState, setTocScrollState] = useState<'top' | 'middle' | 'bottom'>('top')
+  const rafRef = useRef<number | null>(null)
+  const pendingProgress = useRef(0)
 
   const scrollToHeading = useCallback((index: number, _label: string) => {
     const el = document.getElementById(rendered?.headings[index]?.id || '')
@@ -32,70 +35,51 @@ export default function ArticlePage({ title, date, category, slug, content, back
     renderMarkdown(content).then(setRendered)
   }, [content])
 
+  // Progress bar — throttle via rAF, only update when value changes
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
       const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0)
+      pendingProgress.current = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    const tick = () => {
+      if (rafRef.current !== null) {
+        setProgress(pendingProgress.current)
+      }
+      rafRef.current = requestAnimationFrame(tick)
+    }
+    rafRef.current = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
+    }
   }, [])
 
+  // TOC heading highlight — use IntersectionObserver instead of scroll polling
   useEffect(() => {
     if (!rendered?.headings.length) return
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + 100
-      let currentIndex = 0
-      for (let i = rendered.headings.length - 1; i >= 0; i--) {
-        const el = document.getElementById(rendered.headings[i].id)
-        if (el && el.offsetTop <= scrollPos) {
-          currentIndex = i
-          break
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const idx = rendered.headings.findIndex((h) => h.id === entry.target.id)
+            if (idx !== -1) setActiveHeading(idx)
+          }
         }
-      }
-      setActiveHeading(currentIndex)
+      },
+      { rootMargin: '-100px 0px -60% 0px', threshold: 0 }
+    )
+    for (const heading of rendered.headings) {
+      const el = document.getElementById(heading.id)
+      if (el) observer.observe(el)
     }
-    window.addEventListener('scroll', handleScroll)
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [rendered])
-
-  // TOC auto-scroll: keep active heading visible in the TOC sidebar
-  useEffect(() => {
-    const container = tocWrapperRef.current
-    if (!container || activeHeading === null) return
-    const items = container.querySelectorAll('li')
-    const activeItem = items[activeHeading]
-    if (!activeItem) return
-
-    const itemTop = activeItem.offsetTop
-    const itemHeight = activeItem.offsetHeight
-    const containerHeight = container.clientHeight
-    const scrollTop = container.scrollTop
-
-    // Calculate the desired scroll position to center the active item
-    const desiredTop = itemTop - containerHeight / 2 + itemHeight / 2
-    const clampedTop = Math.max(0, Math.min(desiredTop, container.scrollHeight - containerHeight))
-
-    if (Math.abs(scrollTop - clampedTop) > 2) {
-      container.scrollTo({ top: clampedTop, behavior: 'smooth' })
-    }
-  }, [activeHeading])
-
-  // TOC scroll state detection
-  useEffect(() => {
-    const container = tocWrapperRef.current
-    if (!container) return
-    const updateScrollState = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container
-      if (scrollTop <= 5) setTocScrollState('top')
-      else if (scrollTop + clientHeight >= scrollHeight - 5) setTocScrollState('bottom')
-      else setTocScrollState('middle')
-    }
-    container.addEventListener('scroll', updateScrollState, { passive: true })
-    updateScrollState()
-    return () => container.removeEventListener('scroll', updateScrollState)
+    return () => observer.disconnect()
   }, [rendered])
 
   if (!rendered) return null
@@ -192,7 +176,17 @@ export default function ArticlePage({ title, date, category, slug, content, back
           <article className="flex-1 min-w-0">
             {/* Header */}
             <header className="mb-10 pb-10 border-b border-border">
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">{title}</h1>
+              <SplitText
+                text={title}
+                className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4"
+                tag="h1"
+                delay={30}
+                duration={0.8}
+                ease="power3.out"
+                from={{ opacity: 0, y: 30 }}
+                to={{ opacity: 1, y: 0 }}
+                textAlign="left"
+              />
               <div className="flex items-center gap-3">
                 <span className="text-xs font-medium uppercase tracking-wider text-muted">{category}</span>
                 <span className="text-xs text-gray-400">{date}</span>

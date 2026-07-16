@@ -28,3 +28,9 @@ dist-ssr
 
 # TypeScript
 *.tsbuildinfo
+
+# Prompt files
+prompt/
+
+# Component prototypes
+@/
