@@ -21,7 +21,7 @@ export default function AboutPage() {
         duration={1}
         speed={0.5}
       >
-        Hycloud Blog is a space for thoughts, tutorials, and experiments. I write about
+        Hylight is a space for thoughts, tutorials, and experiments. I write about
         React, web development, design, and the tools that make building the web enjoyable.
       </ScrambledText>
 

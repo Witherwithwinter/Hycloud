@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="relative w-full min-h-[85vh] flex items-center justify-center pt-16">
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
         <SplitText
-          text="Hycloud Blog"
+          text="Hylight"
           className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6"
           tag="h1"
           splitType="chars"

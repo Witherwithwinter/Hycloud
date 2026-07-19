@@ -1,5 +1,5 @@
 {
-  "name": "hycloud-blog-theme",
+  "name": "hylight",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -21,7 +21,7 @@
     "postprocessing": "^6.39.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1",
+    "react-router-dom": "^6.30.4",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-highlight": "^7.0.2",
     "rehype-sanitize": "^6.0.0",

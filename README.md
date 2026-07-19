@@ -1,15 +1,15 @@
-# Hycloud Blog Theme
+# Hylight
 
 A minimalist blog theme built with React, TypeScript, and Tailwind CSS. Clean typography, smooth animations, and Markdown-powered content — designed for clarity and readability.
 
-[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Witherwithwinter/Hycloud)
+[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Witherwithwinter/Hylight)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ## Live Demo
 
-Visit the live site: [Live Demo](https://hycloud-ac0.pages.dev)
+Visit the live site: [Live Demo](https://hylight-ac0.pages.dev)
 
 ## Features
 
