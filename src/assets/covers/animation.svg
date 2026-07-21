@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef2f2"/>
-      <stop offset="100%" stop-color="#fecdd3"/>
+      <stop offset="0%" stop-color="#ecfeff"/>
+      <stop offset="100%" stop-color="#cffafe"/>
     </linearGradient>
     <filter id="glow">
       <feGaussianBlur stdDeviation="6" result="blur"/>
@@ -15,28 +15,28 @@
   <!-- Background -->
   <rect width="640" height="320" fill="url(#bg)"/>
   <!-- Wave pattern -->
-  <g stroke="#fb7185" stroke-width="1.5" opacity="0.3" fill="none">
+  <g stroke="#22d3ee" stroke-width="1.5" opacity="0.3" fill="none">
     <path d="M0,200 Q80,160 160,200 T320,200 T480,200 T640,200"/>
     <path d="M0,220 Q80,180 160,220 T320,220 T480,220 T640,220"/>
     <path d="M0,240 Q80,200 160,240 T320,240 T480,240 T640,240"/>
   </g>
   <!-- GSAP logo hint - play button -->
-  <circle cx="320" cy="140" r="50" fill="#e11d48" opacity="0.15"/>
-  <polygon points="310,120 310,160 345,140" fill="#e11d48" opacity="0.6"/>
+  <circle cx="320" cy="140" r="50" fill="#0891b2" opacity="0.15"/>
+  <polygon points="310,120 310,160 345,140" fill="#0891b2" opacity="0.6"/>
   <!-- Timeline bars -->
   <g transform="translate(420, 80)">
-    <rect x="0" y="0" width="16" height="16" rx="3" fill="#e11d48" opacity="0.7"/>
-    <rect x="24" y="0" width="16" height="16" rx="3" fill="#fda4af" opacity="0.7"/>
-    <rect x="48" y="0" width="16" height="16" rx="3" fill="#e11d48" opacity="0.7"/>
-    <rect x="0" y="24" width="16" height="16" rx="3" fill="#fda4af" opacity="0.7"/>
-    <rect x="24" y="24" width="16" height="16" rx="3" fill="#e11d48" opacity="0.7"/>
-    <rect x="48" y="24" width="16" height="16" rx="3" fill="#fda4af" opacity="0.7"/>
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#0891b2" opacity="0.7"/>
+    <rect x="24" y="0" width="16" height="16" rx="3" fill="#67e8f9" opacity="0.7"/>
+    <rect x="48" y="0" width="16" height="16" rx="3" fill="#0891b2" opacity="0.7"/>
+    <rect x="0" y="24" width="16" height="16" rx="3" fill="#67e8f9" opacity="0.7"/>
+    <rect x="24" y="24" width="16" height="16" rx="3" fill="#0891b2" opacity="0.7"/>
+    <rect x="48" y="24" width="16" height="16" rx="3" fill="#67e8f9" opacity="0.7"/>
   </g>
   <!-- Floating particles -->
-  <circle cx="100" cy="80" r="4" fill="#e11d48" opacity="0.4"/>
-  <circle cx="550" cy="100" r="6" fill="#fda4af" opacity="0.5"/>
-  <circle cx="150" cy="280" r="3" fill="#e11d48" opacity="0.3"/>
+  <circle cx="100" cy="80" r="4" fill="#0891b2" opacity="0.4"/>
+  <circle cx="550" cy="100" r="6" fill="#67e8f9" opacity="0.5"/>
+  <circle cx="150" cy="280" r="3" fill="#0891b2" opacity="0.3"/>
   <!-- Bottom strip -->
   <rect x="0" y="264" width="640" height="56" fill="rgba(255,255,255,0.72)"/>
-  <line x1="0" y1="264" x2="640" y2="264" stroke="#fda4af" stroke-width="1"/>
+  <line x1="0" y1="264" x2="640" y2="264" stroke="#67e8f9" stroke-width="1"/>
 </svg>
