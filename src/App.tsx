@@ -35,6 +35,7 @@ function HomePage() {
 
 function ArticleRoute() {
   const { slug } = useParams() as { slug: string }
+  const { t } = useTranslation()
   const [post, setPost] = useState<PostWithRaw | null>(null)
   const [allPosts, setAllPosts] = useState<PostWithRaw[]>([])
   const [error, setError] = useState<string | null>(null)
@@ -62,13 +63,13 @@ function ArticleRoute() {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto px-6 py-32 text-center">
-        <h1 className="text-2xl font-bold text-foreground mb-4">Post not found</h1>
+        <h1 className="text-2xl font-bold text-foreground mb-4">{t('article_notfound_title')}</h1>
         <p className="text-muted mb-6">{error}</p>
         <Link to="/" className="text-sm text-muted hover:text-foreground transition-colors inline-flex items-center gap-1">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Back
+          {t('article_notfound_back')}
         </Link>
       </div>
     )
@@ -97,22 +98,23 @@ function ArticleRoute() {
 }
 
 function NotFound() {
+  const { t } = useTranslation()
   return (
     <div className="max-w-4xl mx-auto px-6 py-32 text-center">
-      <h1 className="text-4xl font-bold text-foreground mb-4">404</h1>
-      <p className="text-muted mb-8">Post not found</p>
+      <h1 className="text-4xl font-bold text-foreground mb-4">{t('notfound_title')}</h1>
+      <p className="text-muted mb-8">{t('notfound_message')}</p>
       <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium hover:underline">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
           <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        Back to home
+        {t('notfound_back')}
       </Link>
     </div>
   )
 }
 
 function AppContent() {
-  const { t, locale, setLanguage } = useTranslation()
+  const { t } = useTranslation()
 
   const navItems = useMemo(
     () => [
@@ -122,12 +124,6 @@ function AppContent() {
     ],
     [t]
   )
-
-  const handleLanguageToggle = () => {
-    setLanguage(locale === 'en' ? 'zh-CN' : 'en')
-  }
-
-  const languageLabel = locale === 'en' ? '中文' : 'EN'
 
   return (
     <>
@@ -140,8 +136,7 @@ function AppContent() {
           pillColor="#f9fafb"
           hoveredPillTextColor="#111827"
           initialLoadAnimation={true}
-          languageLabel={languageLabel}
-          onLanguageToggle={handleLanguageToggle}
+          locale={config.DEFAULT_LOCALE}
         />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
+import type { Locale } from '@/i18n';
 
 export type PillNavItem = {
   label: string;
@@ -21,8 +22,7 @@ export interface PillNavProps {
   pillTextColor?: string;
   onMobileMenuClick?: () => void;
   initialLoadAnimation?: boolean;
-  languageLabel?: string;
-  onLanguageToggle?: () => void;
+  locale?: Locale;
 }
 
 const PillNav: React.FC<PillNavProps> = ({
@@ -38,8 +38,7 @@ const PillNav: React.FC<PillNavProps> = ({
   pillTextColor,
   onMobileMenuClick,
   initialLoadAnimation = true,
-  languageLabel,
-  onLanguageToggle,
+  locale = 'en'
 }) => {
   const resolvedPillTextColor = pillTextColor ?? baseColor;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -359,7 +358,7 @@ const PillNav: React.FC<PillNavProps> = ({
               );
 
               const basePillClasses =
-                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
+                `relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[16px] leading-[0] ${locale === 'en' ? 'uppercase tracking-[0.2px]' : ''} whitespace-nowrap cursor-pointer px-0`;
 
               return (
                 <li key={item.href} role="none" className="flex h-full">
@@ -393,18 +392,6 @@ const PillNav: React.FC<PillNavProps> = ({
             })}
           </ul>
         </div>
-
-        <button
-          onClick={onLanguageToggle}
-          aria-label={languageLabel || 'Switch language'}
-          className="rounded-full border-0 flex items-center justify-center gap-1 cursor-pointer px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-all hover:opacity-80"
-          style={{
-            background: 'var(--pill-bg, #fff)',
-            color: 'var(--pill-text, var(--base, #000))',
-          }}
-        >
-          {languageLabel || 'EN'}
-        </button>
 
         <button
           ref={hamburgerRef}

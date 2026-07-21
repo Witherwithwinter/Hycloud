@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo } from 'react'
 import { config } from '@/config'
 
 export type Locale = 'en' | 'zh-CN'
@@ -38,7 +38,7 @@ export interface TranslationRecord {
   notfound_message: string
   notfound_back: string
   article_notfound_title: string
-  article_notfound_message: string | ((slug: string) => string)
+  article_notfound_message: string
   article_notfound_back: string
 }
 
@@ -78,7 +78,7 @@ const translations: Record<Locale, TranslationRecord> = {
     notfound_message: 'Post not found',
     notfound_back: 'Back to home',
     article_notfound_title: 'Post not found',
-    article_notfound_message: (slug: string) => `Post "${slug}" not found`,
+    article_notfound_message: 'Post not found',
     article_notfound_back: 'Back',
   },
   'zh-CN': {
@@ -86,7 +86,7 @@ const translations: Record<Locale, TranslationRecord> = {
     nav_archive: '归档',
     nav_about: '关于',
 
-    hero_subtitle: '随笔、教程与实验 —— 力求清晰表达。',
+    hero_subtitle: '用简洁的文字，记录思考、分享教程、探索实践。',
     hero_button: '开始阅读',
 
     postlist_heading: '最新文章',
@@ -101,9 +101,9 @@ const translations: Record<Locale, TranslationRecord> = {
     archive_title: '归档',
     about_title: '关于',
 
-    about_paragraph_1: 'Hylight 是一个存放思考、教程和实验的空间。我撰写关于 React、Web 开发、设计以及让构建 Web 变得愉悦的工具的文章。',
-    about_paragraph_2: '这个博客使用 Vite、React、Tailwind CSS 和 React Bits 组件构建。文章以 Markdown 撰写并部署在 Cloudflare Pages 上。',
-    about_paragraph_3: '设计理念很简单：清晰的排版、极简的装饰，以及易于阅读的内容。没有干扰。',
+    about_paragraph_1: 'Hylight 是一片记录思考与探索的空间。这里分享 React、Web 开发、设计相关的内容，以及那些让前端开发充满乐趣的工具与方法。',
+    about_paragraph_2: '本站基于 Vite + React + Tailwind CSS 构建，部分组件来自 React Bits。文章以 Markdown 编写，部署在 Cloudflare Pages 上。',
+    about_paragraph_3: '设计理念很简单：清爽的排版、克制的装饰、纯粹的内容。仅此而已。',
 
     footer_copyright: '© 2026 Hylight',
     footer_about: '关于',
@@ -116,30 +116,26 @@ const translations: Record<Locale, TranslationRecord> = {
     notfound_message: '未找到文章',
     notfound_back: '返回首页',
     article_notfound_title: '未找到文章',
-    article_notfound_message: (slug: string) => `文章 "${slug}" 不存在`,
+    article_notfound_message: '未找到文章',
     article_notfound_back: '返回',
   },
 }
 
 interface I18nContextValue {
-  locale: Locale
-  t: (key: keyof TranslationRecord, ...args: any[]) => string
-  setLanguage: (locale: Locale) => void
+  t: (key: keyof TranslationRecord) => string
 }
 
 const I18nContext = createContext<I18nContextValue | null>(null)
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(config.DEFAULT_LOCALE)
+  const locale = config.DEFAULT_LOCALE
 
   useEffect(() => {
     document.documentElement.lang = locale
   }, [locale])
 
   const value = useMemo<I18nContextValue>(() => ({
-    locale,
     t: (key) => translations[locale][key],
-    setLanguage: (nextLocale: Locale) => setLocaleState(nextLocale),
   }), [locale])
 
   return (
