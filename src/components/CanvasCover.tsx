@@ -17,9 +17,9 @@ interface Palette {
 /** Category → palette mapping */
 const PALETTES: Record<string, Palette> = {
   Design: {
-    bg: '#fef2f2',
-    accent: '#e11d48',
-    accentLight: '#fda4af',
+    bg: '#ecfeff',
+    accent: '#0891b2',
+    accentLight: '#67e8f9',
     overlay: 'rgba(255,255,255,0.72)',
   },
   Tutorial: {
