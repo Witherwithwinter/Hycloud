@@ -29,7 +29,7 @@ npm install
 
 ## Project Structure
 
-```
+```text
 hylight/
 ├── content/posts/    # Your markdown blog posts
 ├── src/

@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route, useParams, Link } from 'react-router-dom'
-import { Suspense, lazy, useState, useEffect } from 'react'
+import { Suspense, lazy, useState, useEffect, useMemo } from 'react'
 import Hero from '@/components/Hero'
 import PostList from '@/components/PostList'
 import Footer from '@/components/Footer'
-import NavBar from '@/components/NavBar'
+import PillNav from '@/components/PillNav'
+import ClickSpark from '@/components/ClickSpark'
+import { config } from '@/config'
+import { I18nProvider, useTranslation } from '@/i18n'
 
 const ArticlePage = lazy(() => import('@/components/ArticlePage'))
 const ArchivePage = lazy(() => import('@/components/ArchivePage'))
@@ -97,7 +100,7 @@ function NotFound() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-32 text-center">
       <h1 className="text-4xl font-bold text-foreground mb-4">404</h1>
-      <p className="text-muted mb-8">Page not found</p>
+      <p className="text-muted mb-8">Post not found</p>
       <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium hover:underline">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
           <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -108,17 +111,63 @@ function NotFound() {
   )
 }
 
+function AppContent() {
+  const { t, locale, setLanguage } = useTranslation()
+
+  const navItems = useMemo(
+    () => [
+      { label: t('nav_home'), href: '/' },
+      { label: t('nav_archive'), href: '/archive' },
+      { label: t('nav_about'), href: '/about' },
+    ],
+    [t]
+  )
+
+  const handleLanguageToggle = () => {
+    setLanguage(locale === 'en' ? 'zh-CN' : 'en')
+  }
+
+  const languageLabel = locale === 'en' ? '中文' : 'EN'
+
+  return (
+    <>
+      <BrowserRouter>
+        <PillNav
+          logo="/logo.svg"
+          logoAlt="Hylight"
+          items={navItems}
+          baseColor="#111827"
+          pillColor="#f9fafb"
+          hoveredPillTextColor="#111827"
+          initialLoadAnimation={true}
+          languageLabel={languageLabel}
+          onLanguageToggle={handleLanguageToggle}
+        />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/archive" element={<Suspense fallback={null}><ArchivePage /></Suspense>} />
+          <Route path="/posts/:slug" element={<ArticleRoute />} />
+          <Route path="/about" element={<Suspense fallback={null}><AboutPage /></Suspense>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <ClickSpark
+        sparkColor="#000"
+        sparkSize={20}
+        sparkRadius={40}
+        sparkCount={8}
+        duration={500}
+        easing="ease-out"
+        extraScale={1.5}
+      />
+    </>
+  )
+}
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/archive" element={<Suspense fallback={null}><ArchivePage /></Suspense>} />
-        <Route path="/posts/:slug" element={<ArticleRoute />} />
-        <Route path="/about" element={<Suspense fallback={null}><AboutPage /></Suspense>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <I18nProvider>
+      <AppContent />
+    </I18nProvider>
   )
 }

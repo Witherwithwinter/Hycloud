@@ -1,11 +1,14 @@
 import SplitText from '@/components/SplitText'
-import ScrambledText from '@/components/ScrollReveal'
+import ScrambledText from '@/components/ScrambledText'
+import { useTranslation } from '@/i18n'
 
 export default function AboutPage() {
+  const { t } = useTranslation()
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-16 pt-20">
       <SplitText
-        text="About"
+        text={t('about_title')}
         className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8"
         tag="h1"
         delay={40}
@@ -21,8 +24,7 @@ export default function AboutPage() {
         duration={1}
         speed={0.5}
       >
-        Hylight is a space for thoughts, tutorials, and experiments. I write about
-        React, web development, design, and the tools that make building the web enjoyable.
+        {t('about_paragraph_1')}
       </ScrambledText>
 
       <ScrambledText
@@ -30,8 +32,7 @@ export default function AboutPage() {
         duration={1}
         speed={0.5}
       >
-        This blog is built with Vite, React, Tailwind CSS, and components from React Bits.
-        Articles are written in Markdown and deployed on Cloudflare Pages.
+        {t('about_paragraph_2')}
       </ScrambledText>
 
       <ScrambledText
@@ -39,8 +40,7 @@ export default function AboutPage() {
         duration={1}
         speed={0.5}
       >
-        The design philosophy is simple: clean typography, minimal decoration, and content that
-        reads well. No distractions.
+        {t('about_paragraph_3')}
       </ScrambledText>
     </div>
   )

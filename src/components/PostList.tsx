@@ -1,3 +1,4 @@
+import { useTranslation } from '@/i18n'
 import PostCard from './PostCard'
 
 interface PostEntry {
@@ -30,18 +31,20 @@ function loadPosts(): PostEntry[] {
 const posts = loadPosts()
 
 export default function PostList() {
+  const { t } = useTranslation()
+
   if (posts.length === 0) {
     return (
       <section id="posts" className="max-w-4xl mx-auto px-6 py-16">
-        <h2 className="text-2xl font-semibold text-foreground mb-8 tracking-tight">Latest Posts</h2>
-        <p className="text-muted">No posts yet.</p>
+        <h2 className="text-2xl font-semibold text-foreground mb-8 tracking-tight">{t('postlist_heading')}</h2>
+        <p className="text-muted">{t('postlist_empty')}</p>
       </section>
     )
   }
 
   return (
     <section id="posts" className="max-w-4xl mx-auto px-6 py-16">
-      <h2 className="text-2xl font-semibold text-foreground mb-8 tracking-tight">Latest Posts</h2>
+      <h2 className="text-2xl font-semibold text-foreground mb-8 tracking-tight">{t('postlist_heading')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {posts.map((post) => (
           <PostCard key={post.slug} {...post} />

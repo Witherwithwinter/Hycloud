@@ -1,5 +1,6 @@
 import SplitText from '@/components/SplitText'
 import LineSidebar from '@/components/LineSidebar'
+import { useTranslation } from '@/i18n'
 
 interface PostEntry {
   slug: string
@@ -29,6 +30,8 @@ function loadPosts(): PostEntry[] {
 const posts = loadPosts()
 
 export default function ArchivePage() {
+  const { t } = useTranslation()
+
   const sidebarItems = posts.map((p) => ({
     label: p.title,
     date: p.date,
@@ -36,20 +39,20 @@ export default function ArchivePage() {
   }))
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16 pt-20">
+    <div className="max-w-3xl mx-auto px-6 py-16 pt-20">
       <SplitText
-        text="Archive"
-        className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-12"
+        text={t('archive_title')}
+        className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-8"
         tag="h1"
         delay={40}
         duration={1}
         ease="power3.out"
         from={{ opacity: 0, y: 30 }}
         to={{ opacity: 1, y: 0 }}
-        textAlign="center"
+        textAlign="left"
       />
 
-      <div className="flex justify-center w-full max-w-2xl">
+      <div className="-mt-4">
         <LineSidebar
           items={sidebarItems.map((item) => item.label)}
           accentColor="#000000"

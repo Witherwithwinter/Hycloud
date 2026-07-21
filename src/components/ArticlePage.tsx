@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { renderMarkdown, type RenderedPost } from '@/lib/render'
 import LineSidebar from '@/components/LineSidebar'
 import SplitText from '@/components/SplitText'
+import { useTranslation } from '@/i18n'
 
 interface ArticlePageProps {
   title: string
@@ -16,6 +17,7 @@ interface ArticlePageProps {
 }
 
 export default function ArticlePage({ title, date, category, slug, content, backPath = '/', prevPost, nextPost }: ArticlePageProps) {
+  const { t } = useTranslation()
   const [rendered, setRendered] = useState<RenderedPost | null>(null)
   const [progress, setProgress] = useState(0)
   const [activeHeading, setActiveHeading] = useState<number | null>(null)
@@ -104,7 +106,7 @@ export default function ArticlePage({ title, date, category, slug, content, back
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                   <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                Back
+                {t('article_back')}
               </Link>
 
               {/* Table of Contents */}
@@ -154,7 +156,7 @@ export default function ArticlePage({ title, date, category, slug, content, back
                       to={`/posts/${prevPost.slug}`}
                       className="block text-sm text-muted hover:text-foreground transition-colors p-3 rounded-lg border border-border hover:border-gray-300"
                     >
-                      <span className="text-xs uppercase tracking-wider text-muted/60">Previous</span>
+                      <span className="text-xs uppercase tracking-wider text-muted/60">{t('article_prev')}</span>
                       <p className="mt-1 font-medium text-foreground truncate">{prevPost.title}</p>
                     </Link>
                   )}
@@ -163,7 +165,7 @@ export default function ArticlePage({ title, date, category, slug, content, back
                       to={`/posts/${nextPost.slug}`}
                       className="block text-sm text-muted hover:text-foreground transition-colors p-3 rounded-lg border border-border hover:border-gray-300"
                     >
-                      <span className="text-xs uppercase tracking-wider text-muted/60">Next</span>
+                      <span className="text-xs uppercase tracking-wider text-muted/60">{t('article_next')}</span>
                       <p className="mt-1 font-medium text-foreground truncate">{nextPost.title}</p>
                     </Link>
                   )}
@@ -208,7 +210,7 @@ export default function ArticlePage({ title, date, category, slug, content, back
                       to={`/posts/${prevPost.slug}`}
                       className="block p-4 rounded-lg border border-border hover:border-gray-300 transition-colors"
                     >
-                      <span className="text-xs uppercase tracking-wider text-muted/60">← Previous</span>
+                      <span className="text-xs uppercase tracking-wider text-muted/60">{t('article_prev_mobile')}</span>
                       <p className="mt-1 font-medium text-foreground">{prevPost.title}</p>
                     </Link>
                   )}
@@ -217,7 +219,7 @@ export default function ArticlePage({ title, date, category, slug, content, back
                       to={`/posts/${nextPost.slug}`}
                       className="block p-4 rounded-lg border border-border hover:border-gray-300 transition-colors text-right"
                     >
-                      <span className="text-xs uppercase tracking-wider text-muted/60">Next →</span>
+                      <span className="text-xs uppercase tracking-wider text-muted/60">{t('article_next_mobile')}</span>
                       <p className="mt-1 font-medium text-foreground">{nextPost.title}</p>
                     </Link>
                   )}

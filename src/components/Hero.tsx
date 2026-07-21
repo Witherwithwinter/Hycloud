@@ -1,6 +1,15 @@
+import { useTranslation } from '@/i18n'
 import SplitText from '@/components/SplitText'
 
 export default function Hero() {
+  const { t } = useTranslation()
+  const handleScrollToPosts = () => {
+    const el = document.getElementById('posts')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <section className="relative w-full min-h-[85vh] flex items-center justify-center pt-16">
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
@@ -16,7 +25,7 @@ export default function Hero() {
           to={{ opacity: 1, y: 0 }}
         />
         <SplitText
-          text="Thoughts, tutorials, and experiments — written with clarity."
+          text={t('hero_subtitle')}
           className="text-lg md:text-xl text-muted max-w-xl mx-auto leading-relaxed"
           tag="p"
           splitType="words"
@@ -27,15 +36,15 @@ export default function Hero() {
           to={{ opacity: 1, y: 0 }}
         />
         <div className="mt-10">
-          <a
-            href="#posts"
+          <button
+            onClick={handleScrollToPosts}
             className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
           >
-            Start Reading
+            {t('hero_button')}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </section>
